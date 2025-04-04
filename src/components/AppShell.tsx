@@ -10,14 +10,14 @@ const AppShell = ({ children }: { children: React.ReactNode }) => {
   return (
     <main className="min-h-screen relative">
       <Navbar />
-      <section className="h-16 w-full"></section>
+      {pathname === "/" && <section className="h-16 w-full"></section>}
       {children}
       <footer
-        className={`bg-white text-black text-center p-4 text-sm ${
+        className={`bg-gradient-to-r from-gray-900 via-purple-900 to-black text-white text-center p-4 text-sm shadow-lg shadow-purple-500/50 ${
           isConnected && pathname !== "/about" ? "" : "fixed"
         } bottom-0 w-full`}
       >
-        Copyright &copy; 2025 Template Fullstack Web3
+        <p className="tracking-wide">© 2025 QuizETH | Built for Hackathons</p>
       </footer>
     </main>
   );
