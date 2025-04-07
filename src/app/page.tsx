@@ -1,3 +1,4 @@
+import { ChatWidget } from "@/components/ChatWidget";
 import Link from "next/link";
 
 const Home = () => {
@@ -127,6 +128,7 @@ const Home = () => {
           </button>
         </Link>
       </section>
+      <ChatWidget />
     </div>
   );
 };

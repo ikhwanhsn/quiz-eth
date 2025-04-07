@@ -1,11 +1,11 @@
 import Link from "next/link";
 
 const leaderboardData = [
-  { rank: 1, name: "Alice", score: 95, reward: "500 QTH" },
-  { rank: 2, name: "Bob", score: 90, reward: "400 QTH" },
-  { rank: 3, name: "Charlie", score: 85, reward: "300 QTH" },
-  { rank: 4, name: "David", score: 80, reward: "250 QTH" },
-  { rank: 5, name: "Eve", score: 75, reward: "200 QTH" },
+  { rank: 1, name: "Alice", score: 95, reward: "500 QET" },
+  { rank: 2, name: "Bob", score: 90, reward: "400 QET" },
+  { rank: 3, name: "Charlie", score: 85, reward: "300 QET" },
+  { rank: 4, name: "David", score: 80, reward: "250 QET" },
+  { rank: 5, name: "Eve", score: 75, reward: "200 QET" },
 ];
 
 const Leaderboard = () => {
@@ -48,7 +48,7 @@ const Leaderboard = () => {
       </div>
 
       <Link href="/">
-        <button className="mt-6 px-6 py-2 bg-blue-600 hover:bg-blue-700 transition rounded-lg text-white font-bold shadow-md btn btn-lg">
+        <button className="mt-6 px-6 py-2 bg-blue-600 hover:bg-blue-700 transition rounded-lg text-white font-bold shadow-md btn btn-lg mb-12">
           🔙 Back to Home
         </button>
       </Link>

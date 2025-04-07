@@ -49,7 +49,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href=""
+                href="https://github.com/ikhwanhsn/quiz-eth"
                 target="_blank"
                 className="hover:text-purple-400 transition-all"
               >
@@ -87,7 +87,7 @@ const Navbar = () => {
           </li>
           <li>
             <a
-              href=""
+              href="https://github.com/ikhwanhsn/quiz-eth"
               target="_blank"
               className="hover:text-purple-400 transition-all"
             >

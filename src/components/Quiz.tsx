@@ -6,7 +6,7 @@ import { allQuestions } from "@/services/question";
 
 // Function to get 5 random questions
 const getRandomQuestions = () => {
-  return [...allQuestions].sort(() => 0.5 - Math.random()).slice(0, 5);
+  return [...allQuestions].sort(() => 0.5 - Math.random()).slice(0, 10);
 };
 
 export default function Quiz() {
@@ -18,6 +18,7 @@ export default function Quiz() {
   const [isQuizFinished, setIsQuizFinished] = useState(false);
   const [highestScore, setHighestScore] = useState<number>(0);
   const [showStartScreen, setShowStartScreen] = useState(true);
+  const totalQuestions: number = 10;
 
   // User Stats
   const [totalQuizzesPlayed, setTotalQuizzesPlayed] = useState(0);
@@ -147,7 +148,7 @@ export default function Quiz() {
               </span>
             </p>
             <p className="text-lg">
-              Reward: <span className="font-bold text-green-400">1820 QTH</span>{" "}
+              Reward: <span className="font-bold text-green-400">1820 QET</span>{" "}
               <button className="btn btn-xs btn-success text-white">
                 Claim
               </button>
