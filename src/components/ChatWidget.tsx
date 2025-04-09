@@ -9,7 +9,7 @@ export const ChatWidget = () => {
   useEffect(() => {
     createChat({
       webhookUrl:
-        "https://54.206.126.1:5678/webhook/b23d725c-f978-4fdb-8c70-061d27a33aa8/chat",
+        "https://velobid.app.n8n.cloud/webhook/b23d725c-f978-4fdb-8c70-061d27a33aa8/chat",
       webhookConfig: {
         method: "POST",
         headers: {},
