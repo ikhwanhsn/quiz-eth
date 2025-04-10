@@ -2,6 +2,12 @@
 ![QuizWeb3 Interface](https://i.ibb.co.com/rGSjzr0Y/quizeth-display.png)
 A submission for the **EduChain Hackathon**, QuizETH is a gamified education platform on the blockchain that rewards users with tokens for learning about Web3 through quizzes. It also features an AI chatbot assistant that helps users understand blockchain concepts interactively.
 
+Link project: cooming soon
+Demo video: cooming soon
+Smart contract address: 0xc10DB6F6F48528BF8DD7Ea6F826a50E3aFd04f8a
+Link deployed contract: https://edu-chain-testnet.blockscout.com/address/0xc10DB6F6F48528BF8DD7Ea6F826a50E3aFd04f8a
+Documentation: https://github.com/ikhwanhsn/quiz-eth/
+
 ---
 
 ## 🌟 Overview
