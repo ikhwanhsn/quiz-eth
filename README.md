@@ -4,7 +4,7 @@ A submission for the **EduChain Hackathon**, QuizETH is a gamified education pla
 
 ## 🔗 Project Links
 
-- **🌐 Project Website:** Coming Soon  
+- **🌐 Project Website:** [QuizETH](https://quiz-eth.vercel.app/)  
 - **📹 Demo Video:** Coming Soon  
 - **📄 Documentation:** [GitHub Repository](https://github.com/ikhwanhsn/quiz-eth/)  
 - **📝 Smart Contract Address:** `0xc10DB6F6F48528BF8DD7Ea6F826a50E3aFd04f8a`  
