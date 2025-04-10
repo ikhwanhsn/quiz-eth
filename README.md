@@ -100,13 +100,6 @@ To enhance the learning experience, **QuizETH** includes a conversational AI cha
 
 ---
 
-## 🌐 Live Demo
-
-🔗 **Coming Soon**  
-*(You can replace this with a live site link or deployed contract address once available)*
-
----
-
 ## 🛠️ Installation & Deployment
 
 ```bash
