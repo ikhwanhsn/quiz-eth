@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { allQuestions } from "@/services/question";
+import toast from "react-hot-toast";
+import { getContract, getSigner } from "@/services/contract";
 
 // Function to get 5 random questions
 const getRandomQuestions = () => {
@@ -14,29 +16,39 @@ export default function Quiz() {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [isAnswered, setIsAnswered] = useState(false);
   const [score, setScore] = useState(0);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [questions, setQuestions] = useState<any[]>([]);
   const [isQuizFinished, setIsQuizFinished] = useState(false);
-  const [highestScore, setHighestScore] = useState<number>(0);
   const [showStartScreen, setShowStartScreen] = useState(true);
-  const totalQuestions: number = 10;
-
-  // User Stats
-  const [totalQuizzesPlayed, setTotalQuizzesPlayed] = useState(0);
-  const [totalCorrectAnswers, setTotalCorrectAnswers] = useState(0);
 
   // Timer
   const [timeLeft, setTimeLeft] = useState(5);
 
+  const [onChainHighestScore, setOnChainHighestScore] = useState(0);
+  const [onChainTotalQuizzes, setOnChainTotalQuizzes] = useState(0);
+  const [onChainReward, setOnChainReward] = useState(0);
+
   // Load user stats
   useEffect(() => {
-    const storedScore = localStorage.getItem("highestScore");
-    const storedQuizzes = localStorage.getItem("totalQuizzesPlayed");
-    const storedCorrectAnswers = localStorage.getItem("totalCorrectAnswers");
+    const fetchUserDetails = async () => {
+      try {
+        const contract = await getContract();
+        const signer = await getSigner();
+        const address = await signer.getAddress();
 
-    if (storedScore) setHighestScore(parseInt(storedScore));
-    if (storedQuizzes) setTotalQuizzesPlayed(parseInt(storedQuizzes));
-    if (storedCorrectAnswers)
-      setTotalCorrectAnswers(parseInt(storedCorrectAnswers));
+        const { highestScore, totalQuizPlayed, reward } =
+          await contract.userDetails(address);
+
+        setOnChainHighestScore(Number(highestScore));
+        setOnChainTotalQuizzes(Number(totalQuizPlayed));
+        setOnChainReward(Number(reward));
+      } catch (err) {
+        console.error("Failed to fetch on-chain user details", err);
+        toast.error("Unable to load your on-chain quiz data");
+      }
+    };
+
+    fetchUserDetails();
   }, []);
 
   const startQuiz = () => {
@@ -91,31 +103,45 @@ export default function Quiz() {
 
   // Handle quiz completion
   useEffect(() => {
-    if (isQuizFinished) {
-      alert(`Quiz completed! Your final score: ${score}/${questions.length}`);
+    const handleQuizFinish = async () => {
+      if (isQuizFinished) {
+        toast.success(`Quiz completed! Your final score: ${score}/${questions.length}`);
 
-      // Update highest score
-      if (score > highestScore) {
-        setHighestScore(score);
-        localStorage.setItem("highestScore", score.toString());
+        try {
+          const contract = await getContract();
+          const tx = await contract.submitScore(score);
+
+          toast.loading("Submitting score to blockchain...", { id: "submit" });
+          await tx.wait();
+          console.log(tx);
+          toast.success("Score successfully submitted on-chain!", { id: "submit" });
+        } catch (err) {
+          console.error("Smart contract error:", err);
+          toast.error("Failed to submit score to blockchain!");
+        }
+
+        setShowStartScreen(true);
       }
+    };
 
-      // Update total quizzes played and correct answers
-      const newTotalQuizzes = totalQuizzesPlayed + 1;
-      const newTotalCorrectAnswers = totalCorrectAnswers + score;
-
-      setTotalQuizzesPlayed(newTotalQuizzes);
-      setTotalCorrectAnswers(newTotalCorrectAnswers);
-
-      localStorage.setItem("totalQuizzesPlayed", newTotalQuizzes.toString());
-      localStorage.setItem(
-        "totalCorrectAnswers",
-        newTotalCorrectAnswers.toString()
-      );
-
-      setShowStartScreen(true);
-    }
+    handleQuizFinish();
   }, [isQuizFinished]);
+
+  const claimReward = async () => {
+    try {
+      const contract = await getContract();
+      const tx = await contract.claimReward();
+      toast.loading("Claiming reward...", { id: "claim" });
+      await tx.wait();
+      toast.success("Reward claimed successfully!", { id: "claim" });
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to claim reward");
+    }
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-black text-white">
@@ -126,32 +152,41 @@ export default function Quiz() {
             <p className="text-lg">
               Highest Score:{" "}
               <span className="font-bold text-yellow-400">
-                {highestScore}/5
+                {onChainHighestScore}/5
               </span>
             </p>
             <p className="text-lg">
               Total Quizzes Played:{" "}
               <span className="font-bold text-lime-400">
-                {totalQuizzesPlayed}
+                {onChainTotalQuizzes}
               </span>
             </p>
-            <p className="text-lg">
+            {/* <p className="text-lg">
               Win Rate:{" "}
               <span className="font-bold text-purple-400">
-                {totalQuizzesPlayed > 0
+                {onChainTotalQuizzes > 0
                   ? (
-                      (totalCorrectAnswers / (totalQuizzesPlayed * 5)) *
-                      100
-                    ).toFixed(2)
+                    ((score) /
+                      (onChainTotalQuizzes * 5)) *
+                    100
+                  ).toFixed(2)
                   : "0.00"}
                 %
               </span>
-            </p>
+            </p> */}
             <p className="text-lg">
-              Reward: <span className="font-bold text-green-400">1820 QET</span>{" "}
-              <button className="btn btn-xs btn-success text-white">
-                Claim
-              </button>
+              Reward:{" "}
+              <span className="font-bold text-green-400">
+                {onChainReward} QET
+              </span>
+              {onChainReward > 0 && (
+                <button
+                  className="btn btn-xs btn-success text-white ml-2"
+                  onClick={claimReward}
+                >
+                  Claim
+                </button>
+              )}
             </p>
             <button
               onClick={startQuiz}
@@ -176,13 +211,12 @@ export default function Quiz() {
                   <button
                     key={index}
                     className={`w-full cursor-pointer py-2 px-4 text-left rounded-lg transition-all 
-                    ${
-                      selectedOption === option
+                    ${selectedOption === option
                         ? option === questions[currentQuestion].answer
                           ? "bg-green-500"
                           : "bg-red-500"
                         : "bg-gray-700 hover:bg-gray-600"
-                    }`}
+                      }`}
                     onClick={() => handleSelect(option)}
                     disabled={isAnswered}
                   >
