@@ -1,6 +1,6 @@
 # QuizETH
 
-![QuizETH Banner](https://via.placeholder.com/800x200?text=QuizETH)
+![QuizETH Banner](https://ibb.co.com/ccHBZn30)
 
 ## 🏆 Educhain Hackathon Winner - DeFi + AI + Education Track
 
