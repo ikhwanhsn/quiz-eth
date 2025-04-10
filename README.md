@@ -92,18 +92,6 @@ To enhance the learning experience, **QuizETH** includes a conversational AI cha
 
 ---
 
-## 📦 Project Structure
-
-```bash
-/contracts
-  └── RewardToken.sol        # Main smart contract
-
-/frontend
-  └── index.html             # UI with integrated chatbot and quiz
-  └── chatbot.js             # AI Web3 assistant logic
-  └── quiz.js                # Static quiz and score handler
-```
-
 ## 🌐 Live Demo
 
 🔗 **Coming Soon**  
