@@ -1,9 +1,55 @@
+"use client";
+
 import { ChatWidget } from "@/components/ChatWidget";
+import { getContract } from "@/services/contract";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+
+type LeaderboardEntry = {
+  player: string;
+  score: number;
+};
+
+export const getLeaderboardData = async () => {
+  const contract = await getContract();
+  const data = await contract.getLeaderboard();
+  return data;
+};
 
 const Home = () => {
+  const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchLeaderboard = async () => {
+      try {
+        const data = await getLeaderboardData();
+
+        const formatted = data
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          .map((entry: any) => ({
+            player: entry.player,
+            score: Number(entry.score),
+          }))
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          .sort((a: any, b: any) => b.score - a.score);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const top3 = (formatted ?? []).filter((entry: any) => entry.player !== "0x0000000000000000000000000000000000000000").slice(0, 3);
+        setLeaderboard(top3);
+      } catch (error) {
+        toast.error("Failed to fetch leaderboard data.");
+        console.error("Leaderboard error:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchLeaderboard();
+  }, []);
   return (
     <div className="min-h-screen bg-[#0d0d2b] text-white">
+      <Toaster position="top-right" reverseOrder={false} />
       {/* HERO SECTION */}
       <section className="flex flex-col items-center text-center justify-center py-20 px-6 min-h-screen">
         <h1 className="text-6xl font-extrabold bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text">
@@ -68,8 +114,8 @@ const Home = () => {
                   {idx === 0
                     ? "Use MetaMask or WalletConnect."
                     : idx === 1
-                    ? "Answer correctly to earn points."
-                    : "Claim crypto for high scores."}
+                      ? "Answer correctly to earn points."
+                      : "Claim crypto for high scores."}
                 </p>
               </div>
             )
@@ -81,33 +127,39 @@ const Home = () => {
       <section className="py-16 bg-[#13133f] text-center">
         <h2 className="text-4xl font-bold">🏅 Top Players</h2>
         <div className="max-w-lg mx-auto mt-6 bg-[#1a1a44] p-6 rounded-lg shadow-md border border-gray-700">
-          <table className="w-full text-left text-gray-300">
-            <thead>
-              <tr className="border-b border-gray-600">
-                <th className="py-3">Rank</th>
-                <th className="py-3">Player</th>
-                <th className="py-3">Score</th>
-              </tr>
-            </thead>
-            <tbody>
-              {["Alice", "Bob", "Charlie"].map((player, idx) => (
-                <tr
-                  key={idx}
-                  className={`${
-                    idx === 0
-                      ? "text-yellow-400"
-                      : idx === 1
-                      ? "text-gray-300"
-                      : "text-orange-400"
-                  }`}
-                >
-                  <td className="py-4">{idx + 1}</td>
-                  <td className="py-4">{player}</td>
-                  <td className="py-4">{95 - idx * 5}</td>
+          {loading ? (
+            <p className="text-white text-center">Loading leaderboard...</p>
+          ) : (
+            <table className="w-full text-left text-gray-300">
+              <thead>
+                <tr className="border-b border-gray-600">
+                  <th className="py-3">Rank</th>
+                  <th className="py-3">Player</th>
+                  <th className="py-3">Score</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {leaderboard.map(({ player, score }, index) => {
+                  return (
+                    <tr
+                      key={index}
+                      className={`${index === 0
+                        ? "text-yellow-400"
+                        : index === 1
+                          ? "text-gray-300"
+                          : "text-orange-400"
+                        }`}
+                    >
+                      <td className="py-4">{index + 1}</td>
+                      <td className="py-4">{player.slice(0, 6)}...{player.slice(-4)}</td>
+                      <td className="py-4">{score}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          )}
+
         </div>
         <Link href="/leaderboard">
           <button className="mt-6 px-6 py-3 border-2 border-blue-500 hover:bg-blue-500 rounded-lg font-bold btn btn-lg">
