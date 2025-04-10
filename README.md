@@ -1,7 +1,5 @@
 # QuizETH
 
-![QuizETH Banner](https://i.ibb.co.com/ccHBZn30/quizeth-display.png)
-
 ## 🏆 Educhain Hackathon - DeFi + AI + Education Track
 
 QuizETH is a decentralized educational platform that rewards users for learning about blockchain, DeFi, and cryptocurrency concepts. By combining educational quizzes with token rewards, we're creating a sustainable learn-to-earn ecosystem built on Ethereum.
