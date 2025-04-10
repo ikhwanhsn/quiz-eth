@@ -1,8 +1,8 @@
 # QuizETH
 
-![QuizETH Banner](https://ibb.co.com/ccHBZn30)
+![QuizETH Banner](https://i.ibb.co.com/1f5gPWQ1/quizeth-display.png)
 
-## 🏆 Educhain Hackathon Winner - DeFi + AI + Education Track
+## 🏆 Educhain Hackathon - DeFi + AI + Education Track
 
 QuizETH is a decentralized educational platform that rewards users for learning about blockchain, DeFi, and cryptocurrency concepts. By combining educational quizzes with token rewards, we're creating a sustainable learn-to-earn ecosystem built on Ethereum.
 
@@ -119,8 +119,8 @@ Our dApp connects to the smart contract using:
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/quizeth.git
-cd quizeth
+git clone https://github.com/ikhwanhsn/quiz-eth.git
+cd quiz-eth
 ```
 
 2. Install dependencies:
@@ -166,10 +166,10 @@ npx hardhat run scripts/deploy.js --network <network-name>
 
 ## 👥 Team
 
-- **[Your Name]** - Blockchain Developer & Project Lead
-- **[Team Member]** - Frontend Developer
-- **[Team Member]** - AI Engineer
-- **[Team Member]** - UX Designer
+- **[Ikhwanul Husna]** - Fullstack Web3 & AI
+- **[Marvel Michael]** - Smart Contract Engineer
+- **[Arjuna Marcelino]** - Frontend Developer
+- **[Aditya Wisnu]** - Frontend Developer
 
 ## 📄 License
 
