@@ -166,10 +166,10 @@ npx hardhat run scripts/deploy.js --network <network-name>
 
 ## 👥 Team
 
-- **[Ikhwanul Husna]** - Fullstack Web3 & AI
-- **[Marvel Michael]** - Smart Contract Engineer
-- **[Arjuna Marcelino]** - Frontend Developer
-- **[Aditya Wisnu]** - Frontend Developer
+- **Ikhwanul Husna** – Fullstack Web3 & AI  
+- **Marvel Michael** – Smart Contract Engineer  
+- **Arjuna Marcelino** – Frontend Developer  
+- **Aditya Wisnu** – Frontend Developer
 
 ## 📄 License
 
