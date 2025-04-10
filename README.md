@@ -1,88 +1,147 @@
-# QuizWeb3: Decentralized Learn-to-Earn Platform for Web3 Education
-
+# 🧠 QuizETH – Learn Web3. Earn Tokens.
 ![QuizWeb3 Interface](https://i.ibb.co.com/rGSjzr0Y/quizeth-display.png)
+A submission for the **EduChain Hackathon**, QuizETH is a gamified education platform on the blockchain that rewards users with tokens for learning about Web3 through quizzes. It also features an AI chatbot assistant that helps users understand blockchain concepts interactively.
 
-**🏆 [Your Hackathon/Project Name] - [Track, if applicable]**
+---
 
-## 📖 Table of Contents
-- [Executive Summary](#-executive-summary)
-- [Key Innovations](#-key-innovations)
-- [System Architecture](#-system-architecture)
-- [AI-Powered Web3 Assistant](#-ai-powered-web3-assistant)
-- [Smart Contract System](#-smart-contract-system)
-- [Technical Stack](#-technical-stack)
-- [Getting Started](#-getting-started)
-- [Performance Metrics](#-performance-metrics)
-- [Roadmap](#-roadmap)
-- [Team](#-team)
-- [License](#-license)
+## 🌟 Overview
 
-## 🌟 Executive Summary
+**QuizETH** is an on-chain quiz platform built to incentivize learning. Users can take Web3 and blockchain-related quizzes, get rewarded with tokens based on their score, and even see how they rank on a global leaderboard. 
 
-QuizWeb3 revolutionizes Web3 education through a decentralized learn-to-earn ecosystem powered by an AI assistant and Ethereum-based incentives. Our platform offers:
+### Key Features
 
-- **Interactive Web3 Quizzes**: Engaging quizzes focused on blockchain and Web3 concepts.
-- **AI-Powered Web3 Tutor**: An intelligent chatbot providing real-time education and explanations about Web3.
-- **Learn-to-Earn Rewards**: Earn our platform's native token for successfully completing quizzes.
-- **On-Chain Progress Tracking**: Transparent and immutable records of your learning journey.
+- 🎓 **Educational Quiz Platform** – Web3 and blockchain-focused questions.
+- 🧠 **AI Chatbot Assistant** – Integrated assistant to guide users through Web3 topics.
+- 💰 **Token Rewards** – Users earn $QET (QuizETH Token) for participating and scoring.
+- 🏆 **On-Chain Leaderboard** – Top scorers are showcased and ranked live.
+- 🔐 **Secure Smart Contract** – Built with OpenZeppelin libraries for safety and ownership.
 
-**Key Metrics**
-- 50ms average question generation time (for quiz questions)
-- <2% reward calculation error margin
-- 150ms median transaction finality
-- 98% quiz completion rate in beta testing
+---
 
-## 🚀 Key Innovations
+## 🚀 How It Works
 
-### 1. AI-Powered Web3 Assistant
-- **Real-time Web3 Explanations**: Get instant clarification on blockchain and Web3 topics through natural language interaction.
-- **Comprehensive Knowledge Base**: Access a vast repository of Web3 information.
-- **Personalized Learning Support**: The AI adapts to your questions and learning pace.
+### 1. Take a Quiz
+Users answer a series of static, curated questions related to blockchain and Web3 technologies.
 
-### 2. Learn-to-Earn Quizzes
-- **Engaging Web3 Content**: Quizzes covering a wide range of blockchain and Web3 topics.
-- **Reward System**: Earn our platform's native token (e.g., WEB3T - you can define the actual name) for each correct answer.
-- **Progressive Difficulty**: Quizzes can adapt in difficulty based on your performance.
+### 2. Submit Score
+After completing a quiz, users call the `submitScore()` function with their score (max 10). Their reward is calculated based on score:
 
-### 3. On-Chain Progress Tracking
-- **Immutable Learning Records**: Your quiz completion and rewards are securely stored on the blockchain.
-- **Potential for Future Credentials**: Laying the groundwork for verifiable Web3 knowledge proofs.
+### 3. Earn & Claim Rewards
+Users accumulate rewards and can claim them anytime using the `claimReward()` function. Tokens are transferred securely from the contract owner.
 
-## 🤖 AI-Powered Web3 Assistant Chatbot
-Our platform features an intelligent AI chatbot dedicated to enhancing your Web3 learning experience:
+### 4. Climb the Leaderboard
+The top 10 scores are stored on-chain in a leaderboard. Submit your best scores to rank higher!
 
-- **Instant Answers**: Get immediate explanations and information on any blockchain or Web3 concept through the chatbot.
-- **Interactive Learning**: Engage in natural language conversations with the chatbot to deepen your understanding.
-- **Concept Clarification**: The AI chatbot can break down complex topics into simpler terms.
-- **Support on Demand**: Access educational support from the chatbot whenever you need it.
+---
 
-## 💰 Smart Contract System
-The core functionality of QuizWeb3 is powered by secure and transparent smart contracts on the Ethereum blockchain:
+## 💻 Smart Contract Details
 
-- **Token Management**: Handles the distribution of our native ERC-20 reward token (e.g., WEB3T) based on quiz performance.
-- **Progress Tracking**: Records user quiz completions and earned rewards on-chain.
-- **Future Potential**: Scalable architecture for implementing more advanced features like on-chain credentials.
+- **Token Name:** QuizETH Token
+- **Symbol:** QET
+- **Initial Supply:** 1,000,000,000 QET
+- **Decimals:** 18
 
-## 🛠 Technical Stack
-- **Smart Contracts**: Solidity
-- **Blockchain**: Ethereum
-- **AI Chatbot Model**: Gemini
-- **Frontend**: Next JS
-- **Backend**: -
-- **Decentralized Storage**: -
+### 🔐 Built With
 
-## 🚀 Getting Started
-[Provide clear and concise instructions on how users can interact with your platform. This might include:]
+- [Solidity ^0.8.29](https://soliditylang.org/)
+- [OpenZeppelin Contracts](https://docs.openzeppelin.com/contracts)
+  - `ERC20`, `Ownable`, `ReentrancyGuard`
 
-1. Connecting their Web3 wallet (e.g., MetaMask).
-2. Navigating the quiz interface and selecting quizzes.
-3. Interacting with the AI chatbot for assistance.
-4. Completing quizzes and claiming rewards.
+---
 
-## 🗺️ Roadmap
+## 🔎 Smart Contract Functions
 
-- Expanding the library of expert-curated quizzes.
-- Enhancing the AI chatbot's knowledge base and capabilities.
-- Introducing peer-to-peer learning features.
-- Developing on-chain verifiable credentials (SBTs).
-- Integrating with other Web3 projects.
+| Function | Description |
+|---------|-------------|
+| `submitScore(uint256 _score)` | Submits a user's score (0-10), updates user stats, and calculates rewards. |
+| `claimReward()` | Lets a user claim their accumulated QET tokens. |
+| `getLeaderboard()` | Returns the top 10 leaderboard entries. |
+
+### Structs
+
+```solidity
+struct User {
+    uint256 highestScore;
+    uint256 totalQuizPlayed;
+    uint256 reward;
+}
+
+struct LeaderboardEntry {
+    address player;
+    uint256 score;
+}
+```
+
+## 🧠 AI Educational Assistant
+
+To enhance the learning experience, **QuizETH** includes a conversational AI chatbot trained on Web3 concepts. It helps users by:
+
+- Explaining blockchain fundamentals  
+- Clarifying quiz questions  
+- Providing resources and guidance for further study  
+
+---
+
+## 🧪 Example Flow
+
+1. Alice connects her wallet and takes a quiz.  
+2. She scores 8/10 and submits it via `submitScore(8)`.  
+3. Her reward is calculated: `(8 * 10 + 10) * 10^18 = 90 QET`.  
+4. She sees her name on the leaderboard.  
+5. She later calls `claimReward()` to receive her 90 QET tokens.  
+
+---
+
+## 📦 Project Structure
+
+```bash
+/contracts
+  └── RewardToken.sol        # Main smart contract
+
+/frontend
+  └── index.html             # UI with integrated chatbot and quiz
+  └── chatbot.js             # AI Web3 assistant logic
+  └── quiz.js                # Static quiz and score handler
+```
+
+## 🌐 Live Demo
+
+🔗 **Coming Soon**  
+*(You can replace this with a live site link or deployed contract address once available)*
+
+---
+
+## 🛠️ Installation & Deployment
+
+```bash
+# Install dependencies
+npm install
+
+# Compile smart contract
+npx hardhat compile
+
+# Deploy to a network (e.g. localhost or testnet)
+npx hardhat run scripts/deploy.js --network <network>
+```
+
+## ✅ TODO / Roadmap
+
+- [x] Token reward mechanism  
+- [x] On-chain leaderboard  
+- [x] Quiz submission logic  
+- [x] AI chatbot integration  
+- [ ] Dynamic quizzes from smart contract  
+- [ ] NFT achievement badges  
+- [ ] Mobile responsive UI  
+- [ ] WalletConnect integration  
+- [ ] User profile with stats  
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License**.
+
+---
+
+**Happy hacking and learning Web3! 🚀**
