@@ -80,7 +80,6 @@ The core functionality of QuizWeb3 is powered by secure and transparent smart co
 4. Completing quizzes and claiming rewards.
 
 ## 🗺️ Roadmap
-[Outline your future development plans. Examples include:]
 
 - Expanding the library of expert-curated quizzes.
 - Enhancing the AI chatbot's knowledge base and capabilities.
@@ -88,22 +87,6 @@ The core functionality of QuizWeb3 is powered by secure and transparent smart co
 - Developing on-chain verifiable credentials (SBTs).
 - Integrating with other Web3 projects.
 
-## 🏗 System Architecture
-
-```mermaid
-graph TD
-    A[User Interface] --> B[AI Assistant Module]
-    A --> C[Quiz Module]
-    C -- Correct Answer --> D[Reward Engine]
-    C -- Incorrect Answer --> E[AI Assistant Module]
-    D --> F[Token Distribution]
-    F --> G[On-Chain Records]
-
-    subgraph Blockchain Layer
-        G --> H[QuizWeb3 Smart Contracts]
-        H --> I[ERC-20 WEB3T Token]
-        H --> J[User Progress Tracking]
-    end
 
     subgraph AI Layer
         B --> K[GPT-4 Integration (or other LLM)]
